@@ -7,7 +7,4 @@ class Product(db.Model):
     name = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Float, nullable=False)
     in_stock = db.Column(db.Boolean, default=True)
-    description = db.Column(db.Text, nullable=True)
-
-    def __repr__(self):
-        return f'<Product {self.name}>'
+    description = db.Column(db.String(200))

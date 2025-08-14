@@ -1,33 +1,30 @@
 {% extends "base.html" %}
+{% block title %}All Products{% endblock %}
 {% block content %}
-<h2>All Products</h2>
-<a href="{{ url_for('add_product') }}" class="btn btn-primary mb-3">Add Product</a>
-<table class="table table-bordered">
-    <tr>
-        <th>Name</th>
-        <th>Price</th>
-        <th>In Stock</th>
-        <th>Description</th>
-        <th>Actions</th>
-    </tr>
-    {% for product in products %}
-    <tr>
-        <td>{{ product.name }}</td>
-        <td>{{ product.price }}</td>
-        <td>{{ 'Yes' if product.in_stock else 'No' }}</td>
-        <td>{{ product.description }}</td>
-        <td>
-            <a href="{{ url_for('edit_product', id=product.id) }}" class="btn btn-warning btn-sm">Edit</a>
-            <a href="{{ url_for('delete_product', id=product.id) }}" class="btn btn-danger btn-sm">Delete</a>
-        </td>
-    </tr>
-    {% endfor %}
+<h2>In-Stock Products</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>In Stock</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in products %}
+        <tr>
+            <td>{{ p.name }}</td>
+            <td>{{ p.price }}</td>
+            <td>{{ p.description }}</td>
+            <td>{{ 'Yes' if p.in_stock else 'No' }}</td>
+            <td>
+                <a class="btn btn-sm btn-warning" href="{{ url_for('main.edit_product', product_id=p.id) }}">Edit</a>
+                <a class="btn btn-sm btn-danger" href="{{ url_for('main.delete_product', product_id=p.id) }}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
-
-<h2>In Stock Products</h2>
-<ul>
-    {% for product in in_stock_products %}
-    <li>{{ product.name }} - ${{ product.price }}</li>
-    {% endfor %}
-</ul>
 {% endblock %}
